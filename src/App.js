@@ -1,6 +1,8 @@
 import React from 'react'
 import './App.css';
-import TopBar from './components/topbar'
+import TopBar from './components/topbar';
+import Projects from './components/projects'
+import Home from './components/home'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   BrowserRouter as Router,
@@ -21,8 +23,6 @@ const fakeAuth = {
   }
 }
 
-const Public = () => <h3>Public</h3>
-const Protected = () => <h3>Protected</h3>
 
 class Login extends React.Component {
   state = {
@@ -81,9 +81,9 @@ function App() {
       <div>
         <TopBar/>
         <AuthButton/>
-        <Route path="/public" component={Public}/>
+        <Route path="/" component={Home}/>
         <Route path="/login" component={Login}/>
-        <PrivateRoute path='/protected' component={Protected} />
+        <PrivateRoute path='/projects' component={Projects} />
 
       </div>
     </Router>
