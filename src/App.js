@@ -1,93 +1,72 @@
 import React from 'react'
 import './App.css';
-import TopBar from './components/topbar';
-import Projects from './components/projects'
-import Home from './components/home'
+import { Router, Route, Switch, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { history } from './helpers';
+import { alertActions } from './actions';
+import { PrivateRoute } from './components/PrivateRoute';
+import TopBar from './pages/topbar';
+import Projects from './pages/projects'
+import Home from './pages/home'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {
-  BrowserRouter as Router,
-  Route,
-  Redirect,
-  withRouter
-} from 'react-router-dom'
+import Test from './components/test';
+import {SignIn} from './pages/signin';
+import { SignUp } from './pages/signup';
 
-const fakeAuth = {
-  isAuthenticated: false,
-  authenticate(cb) {
-    this.isAuthenticated = true
-    setTimeout(cb, 100)
-  },
-  signout(cb) {
-    this.isAuthenticated = false
-    setTimeout(cb, 100)
-  }
-}
+class App extends React.Component {
+  constructor(props) {
+      super(props);
 
+      history.listen((location, action) => {
+          // clear alert on location change
+          this.props.clearAlerts();
+      });
+  }
 
-class Login extends React.Component {
-  state = {
-    redirectToReferrer: false
-  }
-  login = () => {
-    fakeAuth.authenticate(() => {
-      this.setState(() => ({
-        redirectToReferrer: true
-      }))
-    })
-  }
   render() {
-    const { from } = this.props.location.state || { from: { pathname: '/' } }
-    const { redirectToReferrer } = this.state
+      const { alert } = this.props;
+      return (
+        <Router history={history}>
+          <div>
+            <TopBar/>
+            <Route path="/" component={Home}/>
+            <Route path="/login" component={SignIn}/>
+            <Route path="/signup" component={SignUp}/>
+            <Route path="/test" component={Test}/>
+            <PrivateRoute path='/projects' component={Projects} />
 
-    if (redirectToReferrer === true) {
-      return <Redirect to={from} />
-    }
-
-    return (
-      <div>
-        <p>You must log in to view the page</p>
-        <button onClick={this.login}>Log in</button>
-      </div>
-    )
+          </div>
+        </Router>
+      );
   }
 }
 
-const AuthButton = withRouter(({ history }) => (
-  fakeAuth.isAuthenticated ? (
-    <p>
-      Welcome! <button onClick={() => {
-        fakeAuth.signout(() => history.push('/'))
-      }}>Sign out</button>
-    </p>
-  ) : (
-    <p>You are not logged in.</p>
-  )
-))
-
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={(props) => (
-    fakeAuth.isAuthenticated === true
-      ? <Component {...props} />
-      : <Redirect to={{
-          pathname: '/login',
-          state: { from: props.location }
-        }} />
-  )} />
-)
-
-function App() {
-  return (
-    <Router>
-      <div>
-        <TopBar/>
-        <AuthButton/>
-        <Route path="/" component={Home}/>
-        <Route path="/login" component={Login}/>
-        <PrivateRoute path='/projects' component={Projects} />
-
-      </div>
-    </Router>
-  );
+function mapState(state) {
+  const { alert } = state;
+  return { alert };
 }
 
-export default App;
+const actionCreators = {
+  clearAlerts: alertActions.clear
+};
+
+const connectedApp = connect(mapState, actionCreators)(App);
+export { connectedApp as App };
+
+// function App() {
+//   return (
+//     <Router>
+//       <div>
+//         <TopBar/>
+//         <AuthButton/>
+//         <Route path="/" component={Home}/>
+//         <Route path="/login" component={Login}/>
+//         <Route path="/test" component={Test}/>
+//         <PrivateRoute path='/projects' component={Projects} />
+
+//       </div>
+//     </Router>
+//   );
+// }
+
+// export default App;

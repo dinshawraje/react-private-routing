@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Navbar, Nav, FormControl, Form, Button } from "react-bootstrap";
 import Popup from "reactjs-popup";
-import SignIn from './signin';
-import SignUp from './signup';
+import {SignIn} from './signin';
+import {SignUp} from './signup';
 
 const TopBar = () => {
   return (
@@ -14,7 +14,7 @@ const TopBar = () => {
         <Popup modal trigger={<Nav.Link href="#Signin">Login</Nav.Link>}>
         {close => (
           <div>
-            <a className="close" onClick={close}>&times;</a>
+            <button className="close" onClick={close}>&times;</button>
             <SignIn/>       
           </div>
         )}
@@ -22,7 +22,7 @@ const TopBar = () => {
         <Popup modal trigger={<Nav.Link href="#Signup">SignUp</Nav.Link>}>
         {close => (
           <div>
-            <a className="close" onClick={close}>&times;</a>
+            <button className="close" onClick={close}>&times;</button>
             <SignUp/>       
           </div>
         )}
