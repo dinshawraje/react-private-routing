@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from 'react-router-dom';
+
 class Projects extends React.Component {
   
   render(){
@@ -7,6 +9,8 @@ class Projects extends React.Component {
   
     <div>
     List of projects
+    <Link to="/login">Logout</Link>
+
     </div>
    )
   } 
