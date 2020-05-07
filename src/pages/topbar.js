@@ -4,13 +4,15 @@ import Popup from "reactjs-popup";
 import {SignIn} from './signin';
 import {SignUp} from './signup';
 
-const TopBar = () => {
+function TopBar () {
+
   return (
     <Navbar bg="primary" variant="dark">
       <Navbar.Brand href="#">My App</Navbar.Brand>
       <Nav className="mr-auto">
         <Nav.Link href="/">Home</Nav.Link>
         <Nav.Link href="/projects">Projects</Nav.Link>
+        <Nav.Link href="/login"> {localStorage.user!=null? 'Logout' : 'login'} </Nav.Link>
         <Popup modal trigger={<Nav.Link href="#Signin">Login</Nav.Link>}>
         {close => (
           <div>

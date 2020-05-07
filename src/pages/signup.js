@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
+import { Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { userActions } from '../actions';
 class SignUp extends Component {
@@ -44,44 +44,35 @@ class SignUp extends Component {
 
   render() {
     const { registering  } = this.props;
-    const { user, submitted } = this.state;
+    const { user } = this.state;
     return (
       <div className="col-md-6 col-md-offset-3">
         <h2>SignUp Form</h2>
         <form name="form" onSubmit={this.handleSubmit}>
-          <div className={'form-group' + (submitted && !user.username ? ' has-error' : '')}>
-              <label htmlFor="username">User Name</label>
-              <input type="text" className="form-control" name="username" value={user.username} onChange={this.handleChange} />
-              {submitted && !user.username &&
-                  <div className="help-block">First Name is required</div>
-              }
-          </div>
-          <div className={'form-group' + (submitted && !user.company ? ' has-error' : '')}>
-              <label htmlFor="company">company</label>
-              <input type="text" className="form-control" name="company" value={user.company} onChange={this.handleChange} />
-              {submitted && !user.company &&
-                  <div className="help-block">Last Name is required</div>
-              }
-          </div>
-          <div className={'form-group' + (submitted && !user.email ? ' has-error' : '')}>
-              <label htmlFor="email">email</label>
-              <input type="text" className="form-control" name="email" value={user.email} onChange={this.handleChange} />
-              {submitted && !user.email &&
-                  <div className="help-block">email is required</div>
-              }
-          </div>
-          <div className={'form-group' + (submitted && !user.password ? ' has-error' : '')}>
-              <label htmlFor="password">Password</label>
-              <input type="password" className="form-control" name="password" value={user.password} onChange={this.handleChange} />
-              {submitted && !user.password &&
-                  <div className="help-block">Password is required</div>
-              }
-          </div>
+          <Form.Group>
+            <Form.Label>Username</Form.Label>
+            <Form.Control type="text" name='username'
+              value={user.username} onChange={this.handleChange} />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Company</Form.Label>
+            <Form.Control type="text" name='company'
+              value={user.company} onChange={this.handleChange} />
+          </Form.Group>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Email Address</Form.Label>
+            <Form.Control type="email" name='email'
+              value={user.email} onChange={this.handleChange} />
+          </Form.Group>
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control type="password" name='password'
+              value={user.password} onChange={this.handleChange} />
+          </Form.Group>
+         
           <div className="form-group">
               <button className="btn btn-primary">Register</button>
-              {registering && 
-                  <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-              }
+              {registering}
               <Link to="/login" className="btn btn-link">Cancel</Link>
           </div>
         </form>
