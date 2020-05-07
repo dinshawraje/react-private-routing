@@ -12,15 +12,8 @@ function TopBar () {
       <Nav className="mr-auto">
         <Nav.Link href="/">Home</Nav.Link>
         <Nav.Link href="/projects">Projects</Nav.Link>
-        <Nav.Link href="/login"> {localStorage.user!=null? 'Logout' : 'login'} </Nav.Link>
-        <Popup modal trigger={<Nav.Link href="#Signin">Login</Nav.Link>}>
-        {close => (
-          <div>
-            <button className="close" onClick={close}>&times;</button>
-            <SignIn/>       
-          </div>
-        )}
-        </Popup>
+        <Nav.Link href="/login"> {localStorage.getItem("user") === null || localStorage.user=== 'undefined'? 'login' : 'Logout'} </Nav.Link>
+        
         <Popup modal trigger={<Nav.Link href="#Signup">SignUp</Nav.Link>}>
         {close => (
           <div>

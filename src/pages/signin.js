@@ -54,7 +54,7 @@ class SignIn extends React.Component {
           <div className="form-group">
               <button className="btn btn-primary">Login</button>
               {loggingIn}
-              <Link to="/register" className="btn btn-link">Register</Link>
+              <Link to="/signup" className="btn btn-link">Register</Link>
           </div>
         </form>
       </div>

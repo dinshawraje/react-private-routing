@@ -6,7 +6,7 @@ class Home extends React.Component {
    return(
   
     <div>
-    Welcome to application
+    
     </div>
    )
   } 
